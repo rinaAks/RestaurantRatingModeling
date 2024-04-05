@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
@@ -46,14 +47,15 @@
             this.trackBarSanitariya = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.trackBarProductsPriceF = new System.Windows.Forms.TrackBar();
+            this.trackBarProductsPrice = new System.Windows.Forms.TrackBar();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label6 = new System.Windows.Forms.Label();
             this.numericEnemies = new System.Windows.Forms.NumericUpDown();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericNegativeReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPositiveReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSanitariya)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarProductsPriceF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarProductsPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEnemies)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +69,7 @@
             this.btStart.TabIndex = 0;
             this.btStart.Text = "Начать моделирование";
             this.btStart.UseVisualStyleBackColor = true;
+            this.btStart.Click += new System.EventHandler(this.btStart_Click);
             // 
             // btStop
             // 
@@ -77,6 +80,7 @@
             this.btStop.TabIndex = 1;
             this.btStop.Text = "Остановить моделирование";
             this.btStop.UseVisualStyleBackColor = true;
+            this.btStop.Click += new System.EventHandler(this.btStop_Click);
             // 
             // label1
             // 
@@ -162,12 +166,12 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Стоимость продуктов";
             // 
-            // trackBarProductsPriceF
+            // trackBarProductsPrice
             // 
-            this.trackBarProductsPriceF.Location = new System.Drawing.Point(231, 361);
-            this.trackBarProductsPriceF.Name = "trackBarProductsPriceF";
-            this.trackBarProductsPriceF.Size = new System.Drawing.Size(134, 56);
-            this.trackBarProductsPriceF.TabIndex = 11;
+            this.trackBarProductsPrice.Location = new System.Drawing.Point(231, 361);
+            this.trackBarProductsPrice.Name = "trackBarProductsPrice";
+            this.trackBarProductsPrice.Size = new System.Drawing.Size(134, 56);
+            this.trackBarProductsPrice.TabIndex = 11;
             // 
             // chart1
             // 
@@ -183,6 +187,7 @@
             this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(497, 12);
             this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series5.BorderWidth = 3;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -229,6 +234,11 @@
             this.numericEnemies.Size = new System.Drawing.Size(71, 30);
             this.numericEnemies.TabIndex = 14;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -237,7 +247,7 @@
             this.Controls.Add(this.numericEnemies);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chart1);
-            this.Controls.Add(this.trackBarProductsPriceF);
+            this.Controls.Add(this.trackBarProductsPrice);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.trackBarSanitariya);
@@ -254,7 +264,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericNegativeReviews)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPositiveReviews)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSanitariya)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarProductsPriceF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarProductsPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEnemies)).EndInit();
             this.ResumeLayout(false);
@@ -275,10 +285,11 @@
         private System.Windows.Forms.TrackBar trackBarSanitariya;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TrackBar trackBarProductsPriceF;
+        private System.Windows.Forms.TrackBar trackBarProductsPrice;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericEnemies;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

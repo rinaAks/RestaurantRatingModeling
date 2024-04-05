@@ -22,7 +22,6 @@ namespace RestaurantRatingModeling
             InitializeComponent();
         }
 
-        //double priceEuro, priceDollar;
         int negativeRev, positiveRev, enemiesNum;
         int month;
         double foodQua = 0.5, foodPrice = 0.5, serviceQua = 0.5, advert = 0.5;
@@ -57,22 +56,50 @@ namespace RestaurantRatingModeling
             if (buttonValue)
             {
                 month++;
-                //foodQua += 0.1;
-                //priceEuro = priceEuro * (1 + k * (rnd.NextDouble() - 0.5)); //рандом от -0.5 до 0.5
-                //priceDollar = priceDollar * (1 + k * (rnd.NextDouble() - 0.5));
+                //место для изменения переменных
+                advertChange();
+                serviceQuaAndRevChange();
+
                 chart1.Series[0].Points.AddXY(month, foodQua);
                 chart1.Series[1].Points.AddXY(month, foodPrice);
                 chart1.Series[2].Points.AddXY(month, serviceQua);
-                chart1.Series[3].Points.AddXY(month, groceriesPrice);
+                chart1.Series[3].Points.AddXY(month, advert);
             }
 
         }
-
 
         private void btStop_Click(object sender, EventArgs e)
         {
             buttonValue = false;
             timer1.Stop();
         }
+
+        public void advertChange()
+        {
+            const double PositiveRevFactor = 0.1;
+            const double NegativeRevFactor = -0.05;
+            const double enemiesFactor = 0.01;
+
+            advert += positiveRev * PositiveRevFactor;
+            advert += negativeRev * NegativeRevFactor;
+            advert += enemiesNum * enemiesFactor;
+        }
+
+        public void serviceQuaAndRevChange()
+        {
+            const double ServiceQuaFactor = 0.03; // фактор увеличения качества сервиса
+            const double NegativeRevFactor = -0.1; // фактор уменьшения отрицательных отзывов
+            const double PositiveRevFactor = 0.3; // фактор увеличения положительных отзывов
+
+            serviceQua += negativeRev * ServiceQuaFactor;
+            if (negativeRev > 1) // вычитание определенной части отрицательных отзывов, пропорциональной качеству сервиса
+                negativeRev += (int)(serviceQua * NegativeRevFactor);
+            numericNegativeReviews.Value = negativeRev;
+
+            positiveRev += (int)(serviceQua * PositiveRevFactor);
+            if (positiveRev <= 100)
+                numericPositiveReviews.Value = positiveRev;
+        }
+
     }
 }

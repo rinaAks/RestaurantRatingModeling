@@ -52,6 +52,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.numericEnemies = new System.Windows.Forms.NumericUpDown();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tbDebug = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericNegativeReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPositiveReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSanitariya)).BeginInit();
@@ -186,6 +187,8 @@
             // chart1
             // 
             chartArea1.Name = "ChartArea1";
+            chartArea2.AxisX.Minimum = 0D;
+            chartArea2.AxisY.Minimum = 0D;
             chartArea2.Name = "ChartArea2";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.ChartAreas.Add(chartArea2);
@@ -254,11 +257,19 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tbDebug
+            // 
+            this.tbDebug.Location = new System.Drawing.Point(39, 164);
+            this.tbDebug.Name = "tbDebug";
+            this.tbDebug.Size = new System.Drawing.Size(100, 22);
+            this.tbDebug.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 598);
+            this.Controls.Add(this.tbDebug);
             this.Controls.Add(this.numericEnemies);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chart1);
@@ -305,6 +316,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericEnemies;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox tbDebug;
     }
 }
 

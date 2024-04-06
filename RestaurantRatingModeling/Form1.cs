@@ -61,19 +61,19 @@ namespace RestaurantRatingModeling
                 //место для изменения переменных
                 foodQuaChange();
                 foodPriceChange();
-                serviceQuaAndRevChange();
-                advertChange();
-                double rate = (normFoodQua + normSanNorm + normFoodPrice + normAdvert + normRev + normServiceQua) / 6 * 10;
-                int res = (int)rate;
-                if (res > 9 && negativeRev > 1) res--;
-                if (res > 9 && sanNorm < 8) res -= 2;
-                if (res < 10)
-                    lbRating.Text = res.ToString();
+
+                if (foodQua > 1) { foodQua = 1; label7.Visible = true; }
+                else label7.Visible = false;
+                if (foodQua < 0) foodQua = 0;
+
+                if (foodPrice > 1) { foodPrice = 1; label8.Visible = true; }
+                else label8.Visible = false;
+                if (foodPrice < 0) foodPrice = 0;
                 //ТЕСТОВОЕ ИЗМЕНЕНИЕ
-                chart1.Series[0].Points.AddXY(month, normFoodQua);
-                chart1.Series[1].Points.AddXY(month, normFoodPrice);
-                chart1.Series[2].Points.AddXY(month, normServiceQua);
-                chart1.Series[3].Points.AddXY(month, normAdvert);
+                chart1.Series[0].Points.AddXY(month, foodQua);
+                chart1.Series[1].Points.AddXY(month, foodPrice);
+                chart1.Series[2].Points.AddXY(month, serviceQua);
+                chart1.Series[3].Points.AddXY(month, advert);
             }
 
         }
@@ -84,22 +84,39 @@ namespace RestaurantRatingModeling
             timer1.Stop();
         }
 
+        //качество еды - зависит от санитарных норм и количества конкурентов,
+        //т.е. от sanNorm и enemiesNum
+
+        //влияет на количество конкурентов, цену блюд и сам рейтинг ресторана
+        //т.е. на enemiesNum (здесь же), foodPrice, rating
         public void foodQuaChange()
         {
-            const double enemFactor = 0.02;
-            const double sanNormFactor = 0.05;
-            const double foodQuaFactor = -0.18;
+            if (sanNorm < 0.5) foodQua -= sanNorm / 50;
+            else foodQua += sanNorm / 100;
 
-            foodQua += enemiesNum * enemFactor;
-            foodQua += sanNorm * sanNormFactor;
+            if (enemiesNum > 5) foodQua += enemiesNum / 100;
+            tbDebug.Text = foodQua.ToString();
 
-            if (foodQua <= 10)
-                normFoodQua = foodQua / 10;
-            else normFoodQua = foodQua / 100;
-            if (enemiesNum > 1)
-                enemiesNum += (int)(foodQua * foodQuaFactor);
-            numericEnemies.Value = enemiesNum;
+            if (foodQua > 0.8 && enemiesNum > 1) { 
+                enemiesNum -= 1; 
+                numericEnemies.Value -= 1; 
+            }
+
         }
+
+        //цена блюд - зависит от качества еды и стоимости продуктов,
+        //т.е. от foodQua и groceriesPrice
+
+        //влияет на сам рейтинг ресторана
+        //т.е. на rating
+        public void foodPriceChange()
+        {
+            if (groceriesPrice < 0.5) foodPrice -= groceriesPrice / 50;
+            else foodPrice += groceriesPrice / 100;
+
+        }
+
+        /*
         public void foodPriceChange()
         {
             const double foodQuaFactor = 0.05;
@@ -155,7 +172,7 @@ namespace RestaurantRatingModeling
             if (positiveRev <= 100)
                 numericPositiveReviews.Value = positiveRev;
         }*/
-
+        /*
         public void advertChange()
         {
             const double PositiveRevFactor = 0.1;
@@ -170,8 +187,8 @@ namespace RestaurantRatingModeling
                 advert += negativeRev * NegativeRevFactor;
                 advert += enemiesNum * enemiesFactor;
             }
-        }
+        }*/
 
-        
+
     }
 }

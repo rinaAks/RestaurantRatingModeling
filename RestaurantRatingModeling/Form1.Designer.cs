@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btStart = new System.Windows.Forms.Button();
             this.btStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +56,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericNegativeReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPositiveReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSanitariya)).BeginInit();
@@ -189,45 +190,45 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            chartArea2.AxisX.Minimum = 0D;
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.Name = "ChartArea2";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend1.BackColor = System.Drawing.Color.White;
-            legend1.BorderColor = System.Drawing.Color.Silver;
-            legend1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            legend1.IsTextAutoFit = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea5.Name = "ChartArea1";
+            chartArea6.AxisX.Minimum = 0D;
+            chartArea6.AxisY.Minimum = 0D;
+            chartArea6.Name = "ChartArea2";
+            this.chart1.ChartAreas.Add(chartArea5);
+            this.chart1.ChartAreas.Add(chartArea6);
+            legend3.BackColor = System.Drawing.Color.White;
+            legend3.BorderColor = System.Drawing.Color.Silver;
+            legend3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            legend3.IsTextAutoFit = false;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(497, 12);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Качество еды";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Цена блюд";
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea2";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Качество сервиса";
-            series4.BorderWidth = 3;
-            series4.ChartArea = "ChartArea2";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "Маркетинг и реклама";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series9.BorderWidth = 3;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Legend = "Legend1";
+            series9.Name = "Качество еды";
+            series10.BorderWidth = 3;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Legend = "Legend1";
+            series10.Name = "Цена блюд";
+            series11.BorderWidth = 3;
+            series11.ChartArea = "ChartArea2";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Legend = "Legend1";
+            series11.Name = "Качество сервиса";
+            series12.BorderWidth = 3;
+            series12.ChartArea = "ChartArea2";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Legend = "Legend1";
+            series12.Name = "Маркетинг и реклама";
+            this.chart1.Series.Add(series9);
+            this.chart1.Series.Add(series10);
+            this.chart1.Series.Add(series11);
+            this.chart1.Series.Add(series12);
             this.chart1.Size = new System.Drawing.Size(846, 507);
             this.chart1.TabIndex = 12;
             this.chart1.Text = "chart1";
@@ -297,11 +298,22 @@
             this.label9.Text = "Качество сервиса идеальное";
             this.label9.Visible = false;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(1133, 429);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(166, 16);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Ооочень много рекламы";
+            this.label10.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 598);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -356,6 +368,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 

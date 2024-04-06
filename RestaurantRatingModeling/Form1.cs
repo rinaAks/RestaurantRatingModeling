@@ -39,6 +39,8 @@ namespace RestaurantRatingModeling
             enemiesNum = (int)numericEnemies.Value;
             sanNorm = ((double)trackBarSanitariya.Value) / 10.0;
             groceriesPrice = ((double)trackBarProductsPrice.Value) / 10.0;
+            rating = 5.0;
+            foodQua = 0.5; foodPrice = 0.5; serviceQua = 0.5; advert = 0.5;
             for (int i = 0; i < 4; i++)
             {
                 chart1.Series[i].Points.Clear();
@@ -61,8 +63,9 @@ namespace RestaurantRatingModeling
                 foodQuaChange();
                 foodPriceChange();
                 serviceQuaAndRevChange();
+                advertChange();
 
-                //ratingChange();
+                ratingChange();
 
                 if (foodQua > 1) { foodQua = 1; label7.Visible = true; }
                 else label7.Visible = false;
@@ -75,11 +78,18 @@ namespace RestaurantRatingModeling
                 if (serviceQua > 1) { serviceQua = 1; label9.Visible = true; }
                 else label9.Visible = false;
                 if (serviceQua < 0) serviceQua = 0;
-                //ТЕСТОВОЕ ИЗМЕНЕНИЕ
+
+                if (advert > 1) { advert = 1; label10.Visible = true; }
+                else label10.Visible = false;
+                if (advert < 0) advert = 0;
+                
                 chart1.Series[0].Points.AddXY(month, foodQua);
                 chart1.Series[1].Points.AddXY(month, foodPrice);
                 chart1.Series[2].Points.AddXY(month, serviceQua);
                 chart1.Series[3].Points.AddXY(month, advert);
+
+                if (rating < 10) lbRating.Text = Math.Round(rating, 2) + "/10";
+                else lbRating.Text = rating + "/10";
             }
 
         }
@@ -126,95 +136,59 @@ namespace RestaurantRatingModeling
         //т.е. positiveRev, negativeRev, rating
 
         //негативные отзывы зависят от качества сервиса
-        //влияют на качество сервиса (учтено в качестве сервиса), маркетинг и рекламу (будет учтено), и рейтинг ресторана
+        //влияют на качество сервиса (учтено в качестве сервиса), маркетинг и рекламу, и рейтинг ресторана
 
         //положительные отзывы зависят от качества сервиса
-        //влияют на маркетинг и рекламу (будет учтено), и рейтинг ресторана
+        //влияют на маркетинг и рекламу, и рейтинг ресторана
         public void serviceQuaAndRevChange()
         {
             serviceQua += (double)negativeRev / 1000;
-            tbDebug.Text = serviceQua.ToString();
 
-            if (serviceQua > 0.6 && serviceQua < 0.8) { positiveRev += 1; numericPositiveReviews.Value += 1; }
-            if (serviceQua >= 0.8) { positiveRev += 2; numericPositiveReviews.Value += 2; }
+            if (serviceQua > 0.6 && serviceQua < 0.8) { 
+                positiveRev += 1; 
+                numericPositiveReviews.Value += 1;
+                advert += 0.01;
+            }
+            if (serviceQua >= 0.8) { 
+                positiveRev += 2; 
+                numericPositiveReviews.Value += 2;
+                advert += 0.02;
+            }
 
-            if (serviceQua < 0.6) { negativeRev += 1; numericNegativeReviews.Value += 1; }
+            if (serviceQua < 0.6) { 
+                negativeRev += 1; 
+                numericNegativeReviews.Value += 1;
+                advert -= 0.06;
+            }
         }
 
-        //маркетинг и реклама зависят от отриц., полож. отзывов и кол-ва конкурентов
+        //маркетинг и реклама зависят от отриц. (учтено), полож. отзывов (учтено) и кол-ва конкурентов
         //влияют на сам рейтинг (с задержкой)
         public void advertChange()
         {
-
+            if (enemiesNum > 5) advert += (double)enemiesNum / 100;
         }
-
-        /*
-        
-        //изначальная версия Никиты
-        public void serviceQuaAndRevChange()
-        {
-            const double ServiceQuaFactor = 0.03; // фактор увеличения качества сервиса
-            const double NegativeRevFactor = -0.1; // фактор уменьшения отрицательных отзывов
-            const double PositiveRevFactor = 0.3; // фактор увеличения положительных отзывов
-
-            normRev = negativeRev / positiveRev;
-            if (normRev < 0.1) normRev *= 10;
-
-            if (serviceQua <= 10) normServiceQua = serviceQua / 10;
-            else normServiceQua = serviceQua / 100; 
-
-            serviceQua += negativeRev * ServiceQuaFactor;
-            if (negativeRev > 1) // вычитание определенной части отрицательных отзывов, пропорциональной качеству сервиса
-                negativeRev += (int)(serviceQua * NegativeRevFactor);
-            numericNegativeReviews.Value = negativeRev;
-
-            positiveRev += (int)(serviceQua * PositiveRevFactor);
-            if (positiveRev <= 100)
-                numericPositiveReviews.Value = positiveRev;
-        }
-        
-
-        //версия Иры, работает чуть-чуть багованно
-        /*public void serviceQuaAndRevChange()
-        {
-            double coef = (double)negativeRev / (double)positiveRev; //если негативных больше, то качество сервиса больше меняется
-            //coef = coef*(1 + k * (rnd.NextDouble() - 0.5));
-            if (coef > 1) coef = 1 - coef / 10;
-            double ServiceQuaFactor = 0.1; // фактор увеличения качества сервиса
-            double NegativeRevFactor = -1.0 * coef; // фактор уменьшения отрицательных отзывов
-            double PositiveRevFactor = coef; // фактор увеличения положительных отзывов
-            tbDebug.Text = serviceQua.ToString();
-            if (serviceQua < 100)
-                serviceQua += negativeRev * ServiceQuaFactor * coef;
-            if (negativeRev > 1) // вычитание определенной части отрицательных отзывов, пропорциональной качеству сервиса
-                negativeRev += (int)(serviceQua * NegativeRevFactor);
-            numericNegativeReviews.Value = negativeRev;
-
-            positiveRev += (int)(serviceQua * PositiveRevFactor);
-            if (positiveRev <= 100)
-                numericPositiveReviews.Value = positiveRev;
-        }*/
-        /*
-        public void advertChange()
-        {
-            const double PositiveRevFactor = 0.1;
-            const double NegativeRevFactor = -0.05;
-            const double enemiesFactor = 0.01;
-            if (normAdvert <= 10)
-                normAdvert = advert / 10;
-            else normAdvert = advert / 100; 
-            if (advert < 10)
-            {
-                advert += positiveRev * PositiveRevFactor;
-                advert += negativeRev * NegativeRevFactor;
-                advert += enemiesNum * enemiesFactor;
-            }
-        }*/
 
         public void ratingChange()
         {
-            if (negativeRev / positiveRev > 1) rating -= negativeRev * (negativeRev / positiveRev) / 10;
-            else rating += positiveRev * (positiveRev / negativeRev) / 10;
+            if (negativeRev / positiveRev > 1) rating -= (double)negativeRev * ((double)negativeRev / (double)positiveRev) / 1000;
+            else rating += (double)positiveRev * ((double)positiveRev / (double)negativeRev) / 1000;
+            
+            if (serviceQua > 0.8) rating += serviceQua / 100;
+            if(serviceQua < 0.4) rating -= serviceQua / 100;
+
+            if (sanNorm > 0.8) rating += sanNorm / 1000;
+            if (sanNorm < 0.3) rating -= (1-sanNorm) / 10;
+
+            if (foodPrice > 0.8) rating -= 0.05;
+            if (foodPrice < 0.3) rating += 0.05;
+
+            if (foodQua > 0.8) rating += foodQua / 100;
+            if (foodQua < 0.4) rating -= foodQua / 100;
+
+            if (advert > 0.8) rating += advert / 1000;
+            if (advert < 0.4) rating -= advert / 1000;
+            //tbDebug.Text = rating.ToString();
         }
     }
 }

@@ -69,11 +69,11 @@ namespace RestaurantRatingModeling
                 if (res > 9 && sanNorm < 8) res -= 2;
                 if (res < 10)
                     lbRating.Text = res.ToString();
-
-                chart1.Series[0].Points.AddXY(month, foodQua);
-                chart1.Series[1].Points.AddXY(month, foodPrice);
-                chart1.Series[2].Points.AddXY(month, serviceQua/10);
-                chart1.Series[3].Points.AddXY(month, advert/10);
+                //ТЕСТОВОЕ ИЗМЕНЕНИЕ
+                chart1.Series[0].Points.AddXY(month, normFoodQua);
+                chart1.Series[1].Points.AddXY(month, normFoodPrice);
+                chart1.Series[2].Points.AddXY(month, normServiceQua);
+                chart1.Series[3].Points.AddXY(month, normAdvert);
             }
 
         }

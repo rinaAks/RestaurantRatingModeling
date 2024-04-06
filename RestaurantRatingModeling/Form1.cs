@@ -26,8 +26,7 @@ namespace RestaurantRatingModeling
         int month;
         double foodQua = 0.5, foodPrice = 0.5, serviceQua = 0.5, advert = 0.5;
         double sanNorm, groceriesPrice;
-
-        double normFoodQua, normSanNorm, normFoodPrice, normAdvert, normRev, normServiceQua;
+        double rating = 5.0;
 
         const double k = 0.1; //коэффициент, задаём сами. нужен, чтобы на меньшее число после рандома менялось
         Random rnd = new Random(); //от 0 до 1
@@ -61,6 +60,9 @@ namespace RestaurantRatingModeling
                 //место для изменения переменных
                 foodQuaChange();
                 foodPriceChange();
+                serviceQuaAndRevChange();
+
+                //ratingChange();
 
                 if (foodQua > 1) { foodQua = 1; label7.Visible = true; }
                 else label7.Visible = false;
@@ -69,6 +71,10 @@ namespace RestaurantRatingModeling
                 if (foodPrice > 1) { foodPrice = 1; label8.Visible = true; }
                 else label8.Visible = false;
                 if (foodPrice < 0) foodPrice = 0;
+
+                if (serviceQua > 1) { serviceQua = 1; label9.Visible = true; }
+                else label9.Visible = false;
+                if (serviceQua < 0) serviceQua = 0;
                 //ТЕСТОВОЕ ИЗМЕНЕНИЕ
                 chart1.Series[0].Points.AddXY(month, foodQua);
                 chart1.Series[1].Points.AddXY(month, foodPrice);
@@ -95,7 +101,6 @@ namespace RestaurantRatingModeling
             else foodQua += sanNorm / 100;
 
             if (enemiesNum > 5) foodQua += enemiesNum / 100;
-            tbDebug.Text = foodQua.ToString();
 
             if (foodQua > 0.8 && enemiesNum > 1) { 
                 enemiesNum -= 1; 
@@ -113,20 +118,37 @@ namespace RestaurantRatingModeling
         {
             if (groceriesPrice < 0.5) foodPrice -= groceriesPrice / 10;
             else foodPrice += groceriesPrice / 10;
+        }
+
+        //качество сервиса зависит от кол-ва отриц. отзывов,
+        //т.е. от negativeRev
+        //влияет на полож отзывы, отриц отзывы, сам рейтинг ресторана
+        //т.е. positiveRev, negativeRev, rating
+
+        //негативные отзывы зависят от качества сервиса
+        //влияют на качество сервиса (учтено в качестве сервиса), маркетинг и рекламу (будет учтено), и рейтинг ресторана
+
+        //положительные отзывы зависят от качества сервиса
+        //влияют на маркетинг и рекламу (будет учтено), и рейтинг ресторана
+        public void serviceQuaAndRevChange()
+        {
+            serviceQua += (double)negativeRev / 1000;
+            tbDebug.Text = serviceQua.ToString();
+
+            if (serviceQua > 0.6 && serviceQua < 0.8) { positiveRev += 1; numericPositiveReviews.Value += 1; }
+            if (serviceQua >= 0.8) { positiveRev += 2; numericPositiveReviews.Value += 2; }
+
+            if (serviceQua < 0.6) { negativeRev += 1; numericNegativeReviews.Value += 1; }
+        }
+
+        //маркетинг и реклама зависят от отриц., полож. отзывов и кол-ва конкурентов
+        //влияют на сам рейтинг (с задержкой)
+        public void advertChange()
+        {
 
         }
 
         /*
-        public void foodPriceChange()
-        {
-            const double foodQuaFactor = 0.05;
-            const double grocPriceFactor = 0.05;
-            if (foodPrice <= 10)
-                normFoodPrice = foodPrice / 10;
-            else normFoodPrice = foodPrice / 100; 
-            foodPrice += groceriesPrice * grocPriceFactor;
-            foodPrice += foodQua * foodQuaFactor;
-        }
         
         //изначальная версия Никиты
         public void serviceQuaAndRevChange()
@@ -189,6 +211,10 @@ namespace RestaurantRatingModeling
             }
         }*/
 
-
+        public void ratingChange()
+        {
+            if (negativeRev / positiveRev > 1) rating -= negativeRev * (negativeRev / positiveRev) / 10;
+            else rating += positiveRev * (positiveRev / negativeRev) / 10;
+        }
     }
 }

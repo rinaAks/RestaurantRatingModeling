@@ -111,8 +111,8 @@ namespace RestaurantRatingModeling
         //т.е. на rating
         public void foodPriceChange()
         {
-            if (groceriesPrice < 0.5) foodPrice -= groceriesPrice / 50;
-            else foodPrice += groceriesPrice / 100;
+            if (groceriesPrice < 0.5) foodPrice -= groceriesPrice / 10;
+            else foodPrice += groceriesPrice / 10;
 
         }
 
